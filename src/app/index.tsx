@@ -1,14 +1,22 @@
-import { Text, TextInput, View } from "react-native";
+import { useState } from "react";
+import { ScrollView, Text, View } from "react-native";
 
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/Button";
+import { TextInput } from "@/components/ui/TextInput";
+import { UpdateAlert } from "@/components/ui/UpdateAlert";
 import { useTheme } from "@/hooks/useTheme";
 
 export default function Index() {
-  const { colors, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
+  const [showUpdateAlert, setShowUpdateAlert] = useState(false);
 
   return (
-    <View className="flex-1 gap-4 bg-light-background p-4 dark:bg-dark-background">
+    <ScrollView
+      className="flex-1 bg-light-background dark:bg-dark-background"
+      contentContainerClassName="gap-4 p-4"
+      keyboardShouldPersistTaps="handled"
+    >
       <ThemeToggle />
 
       <View className="rounded-xl border border-light-border bg-light-card p-4 dark:border-dark-border dark:bg-dark-card">
@@ -19,17 +27,28 @@ export default function Index() {
           This screen automatically adapts to Light and Dark mode.
         </Text>
 
-        <TextInput
-          className="mt-4 rounded-lg border border-light-input px-4 py-3 text-light-foreground dark:border-dark-input dark:text-dark-foreground"
-          placeholder="Type something..."
-          placeholderTextColor={colors.mutedForeground}
-        />
+        <View className="mt-4 gap-3">
+          <TextInput label="Name" placeholder="Enter your name" />
+          <TextInput
+            label="Email"
+            placeholder="you@example.com"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            error="Please enter a valid email"
+          />
+          <TextInput label="Disabled" placeholder="Not editable" editable={false} />
+        </View>
 
         <View className="mt-4 gap-2">
           <Button title="Toggle Theme" onPress={toggleTheme} />
           <Button title="Secondary" variant="secondary" />
           <Button title="Outline" variant="outline" />
           <Button title="Loading" loading />
+          <Button
+            title="Show Update Alert"
+            variant="secondary"
+            onPress={() => setShowUpdateAlert(true)}
+          />
         </View>
       </View>
 
@@ -39,6 +58,15 @@ export default function Index() {
         <Text className="text-light-error dark:text-dark-error">Error message</Text>
         <Text className="text-light-info dark:text-dark-info">Info message</Text>
       </View>
-    </View>
+
+      <UpdateAlert
+        visible={showUpdateAlert}
+        onCancel={() => setShowUpdateAlert(false)}
+        onUpdate={() => {
+          setShowUpdateAlert(false);
+          // Start your update here, e.g. open the store link.
+        }}
+      />
+    </ScrollView>
   );
 }

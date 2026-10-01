@@ -17,6 +17,7 @@ const light = {
   warning: "#B45309",
   error: "#DC2626",
   info: "#0369A1",
+  overlay: "rgba(15, 23, 42, 0.5)", // dimmed background behind alerts/modals
 };
 
 const dark: typeof light = {
@@ -35,6 +36,7 @@ const dark: typeof light = {
   warning: "#FBBF24",
   error: "#F87171",
   info: "#38BDF8",
+  overlay: "rgba(0, 0, 0, 0.7)",
 };
 
 export const Colors = { light, dark };
