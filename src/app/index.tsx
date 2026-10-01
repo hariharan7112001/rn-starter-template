@@ -1,6 +1,7 @@
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { Button } from "@/components/ui/Button";
 import { useTheme } from "@/hooks/useTheme";
 
 export default function Index() {
@@ -24,14 +25,12 @@ export default function Index() {
           placeholderTextColor={colors.mutedForeground}
         />
 
-        <Pressable
-          onPress={toggleTheme}
-          className="mt-4 rounded-lg bg-light-primary p-4 dark:bg-dark-primary"
-        >
-          <Text className="text-center font-semibold text-light-primaryForeground dark:text-dark-primaryForeground">
-            Toggle Theme
-          </Text>
-        </Pressable>
+        <View className="mt-4 gap-2">
+          <Button title="Toggle Theme" onPress={toggleTheme} />
+          <Button title="Secondary" variant="secondary" />
+          <Button title="Outline" variant="outline" />
+          <Button title="Loading" loading />
+        </View>
       </View>
 
       <View className="gap-2 rounded-xl border border-light-border bg-light-surface p-4 dark:border-dark-border dark:bg-dark-surface">
